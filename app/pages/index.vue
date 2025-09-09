@@ -36,12 +36,13 @@ import about from '~/components/about.vue'
 
 // Meta tags
 useHead({
-  title: 'Shomli Interiors - Designing Dreams, Building Reality',
+  title: 'Colors & Signage Solutions',
   meta: [
     {
       name: 'description',
-      content: 'Transform your vision into beautifully crafted spaces. From cozy homes to modern offices, Shomli Interiors creates environments that inspire.'
+      content: 'We specialize in signage, digital printing, and wallpaper solutions. Bringing creativity and quality together to transform your spaces with vibrant designs and lasting impact.'
     }
   ]
 })
+
 </script>
