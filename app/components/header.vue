@@ -1,6 +1,6 @@
 <template>
-  <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 py-2.5 shadow-lg transition-all duration-300" 
-       :class="{ 'bg-white/98 shadow-xl': isScrolled }">
+  <nav class="fixed top-0 w-full bg-white/5 backdrop-blur-sm z-50 py-2.5 shadow-lg transition-all duration-300" 
+       :class="{ 'bg-none backdrop-blur-none': isScrolled }">
     <div class="mx-auto px-8 md:px-4 flex justify-between items-center">
       <!-- Logo -->
       <div>

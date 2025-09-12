@@ -123,7 +123,7 @@
               <span v-if="errors.service" class="text-red-500 text-sm mt-1 block font-medium">{{ errors.service }}</span>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <!-- <div class="grid md:grid-cols-2 gap-6 mb-6">
               <div>
                 <label for="budget" class="block text-sm font-semibold text-gray-700 mb-2">
                   Project Budget
@@ -158,7 +158,7 @@
                   <option value="planning">Just planning</option>
                 </select>
               </div>
-            </div>
+            </div> -->
             
             <div class="mb-6">
               <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -342,8 +342,8 @@ export default {
         phone: '',
         company: '',
         service: '',
-        budget: '',
-        timeline: '',
+        // budget: '',
+        // timeline: '',
         message: '',
         newsletter: false
       },
