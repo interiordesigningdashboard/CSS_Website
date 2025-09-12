@@ -15,8 +15,11 @@
 
     <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-8 pb-20 sm:pb-16">
       <!-- Main Headline with Typing Effect -->
-      <h1 class="p-2text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-blue-600 via-orange-500 to-emerald-500 bg-clip-text text-transparent leading-tight">
-  <span class="inline-block" style="min-height: 1.2em; padding:px">
+      <!-- <h1 class="p-2  text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-blue-600 via-orange-500 to-emerald-500 bg-clip-text text-transparent leading-tight"> -->
+        <h1 class="p-2 text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 
+           bg-gradient-to-r from-blue-600 via-orange-500 to-emerald-500 
+           bg-clip-text text-transparent leading-tight mt-6 sm:mt-2">
+        <span class="inline-block" style="min-height: 1.2em; padding:px">
     {{ displayedText }}<span 
       class="text-orange-500 font-normal transition-opacity duration-150"
       :class="{ 'opacity-100': showCursor, 'opacity-0': !showCursor }"

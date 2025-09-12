@@ -56,7 +56,7 @@
         <!-- About Visual -->
         <div class="flex flex-col gap-8">
           <!-- Company Stats -->
-          <div class="grid grid-cols-2 gap-6 mb-8" ref="statsContainer">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8" ref="statsContainer">
             <div 
               v-for="(stat, index) in stats" 
               :key="stat.label"
