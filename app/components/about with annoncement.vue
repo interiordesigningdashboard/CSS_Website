@@ -6,10 +6,10 @@
         <!-- About Text -->
         <div class="lg:pr-8">
           <h2 class="text-4xl lg:text-5xl font-bold mb-6 text-gray-900 bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent">
-            Who We Are
+            About ColorCraft
           </h2>
           <p class="text-lg text-gray-600 mb-6 leading-relaxed">
-            With over a decade of experience in the signage and printing industry, Colors and Signage Solution has 
+            With over a decade of experience in the signage and printing industry, ColorCraft has 
             established itself as a leader in innovative visual solutions. We combine cutting-edge 
             technology with artistic creativity to deliver exceptional results that exceed our 
             clients' expectations.
@@ -106,7 +106,7 @@
             Our Leadership
           </h3>
           <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-            Meet the visionary leaders who drive Colors & Signage Solution's innovation and excellence
+            Meet the visionary leaders who drive ColorCraft's innovation and excellence
           </p>
         </div>
 
@@ -198,44 +198,69 @@
       </div>
     </div>
 
-    <!-- Dynamic Gradient Marquee -->
+    <!-- Dynamic Announcement Bar -->
     <div class="relative overflow-hidden mt-8">
       <div 
-        class="marquee-container py-4 transition-all duration-2000 ease-in-out"
-        :class="currentMarqueeGradient"
+        class="announcement-bar py-6 transition-all duration-1000 ease-in-out bg-gradient-to-r from-purple-600 via-pink-600 to-red-500"
+        :class="announcements.length > 0 ? currentAnnouncement.bgClass : ''"
       >
-        <!-- Marquee Content -->
-        <div class="marquee-content">
-          <div class="marquee-text flex items-center whitespace-nowrap">
-            <!-- First set of items -->
-            <div 
-              v-for="(item, index) in marqueeItems" 
-              :key="`first-${index}`"
-              class="flex items-center mx-8"
-            >
-              <i :class="item.icon" class="text-white text-xl mr-3"></i>
-              <span class="text-white font-semibold text-lg">{{ item.text }}</span>
+        <div class="max-w-6xl mx-auto px-8">
+          <div class="flex flex-col md:flex-row items-center justify-center text-center md:text-left gap-4">
+            <!-- Animated Icon -->
+            <div class="flex-shrink-0">
+              <i 
+                :class="announcements.length > 0 ? currentAnnouncement.icon : 'fas fa-bullhorn'" 
+                class="text-white text-2xl animate-pulse"
+              ></i>
             </div>
             
-            <!-- Duplicate set for seamless loop -->
-            <div 
-              v-for="(item, index) in marqueeItems" 
-              :key="`second-${index}`"
-              class="flex items-center mx-8"
-            >
-              <i :class="item.icon" class="text-white text-xl mr-3"></i>
-              <span class="text-white font-semibold text-lg">{{ item.text }}</span>
+            <!-- Announcement Text -->
+            <div class="announcement-text flex-grow">
+              <p class="text-white font-bold text-lg md:text-xl mb-1">
+                {{ announcements.length > 0 ? currentAnnouncement.text : '🎉 Welcome to ColorCraft - Your Signage Experts!' }}
+              </p>
+              <p class="text-white/90 text-sm" v-if="announcements.length > 0 && currentAnnouncement.subtext">
+                {{ currentAnnouncement.subtext }}
+              </p>
+              <p class="text-white/90 text-sm" v-else>
+                Contact us today for premium signage solutions
+              </p>
+            </div>
+
+            <!-- Call to Action Button -->
+            <div class="flex-shrink-0">
+              <a 
+                :href="announcements.length > 0 && currentAnnouncement.cta ? currentAnnouncement.cta.link : '#contact'"
+                @click="scrollToContact"
+                class="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105 backdrop-blur-sm border border-white/20 hover:border-white/40"
+              >
+                {{ announcements.length > 0 && currentAnnouncement.cta ? currentAnnouncement.cta.text : 'Get Started' }}
+              </a>
             </div>
           </div>
         </div>
 
-        <!-- Fade edges -->
-        <div class="absolute top-0 left-0 w-24 h-full bg-gradient-to-r from-current to-transparent opacity-30 pointer-events-none z-10"></div>
-        <div class="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-current to-transparent opacity-30 pointer-events-none z-10"></div>
+        <!-- Progress Bar (only show if multiple announcements) -->
+        <div class="absolute bottom-0 left-0 h-1 bg-white/20 w-full" v-if="announcements.length > 1">
+          <div 
+            class="h-full bg-white transition-all duration-100 ease-linear"
+            :style="{ width: progressWidth + '%' }"
+          ></div>
+        </div>
 
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-10">
-          <div class="w-full h-full" style="background-image: radial-gradient(circle at 25% 25%, white 2px, transparent 2px); background-size: 50px 50px;"></div>
+        <!-- Floating Particles -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none" v-if="particles.length > 0">
+          <div 
+            v-for="particle in particles" 
+            :key="particle.id"
+            class="absolute w-2 h-2 bg-white/20 rounded-full animate-float"
+            :style="particle.style"
+          ></div>
+        </div>
+
+        <!-- Debug Info (remove this in production) -->
+        <div class="absolute top-2 left-2 text-white/50 text-xs" v-if="false">
+          Current: {{ currentAnnouncementIndex + 1 }}/{{ announcements.length }}
         </div>
       </div>
     </div>
@@ -253,54 +278,66 @@ export default {
       currentStats: [0, 0, 0, 0],
       statsAnimated: false,
       
-      // Marquee Data
-      currentGradientIndex: 0,
-      gradientTimer: null,
+      // Announcement Bar Data
+      currentAnnouncementIndex: 0,
+      progressWidth: 0,
+      announcementTimer: null,
+      progressTimer: null,
       
-      marqueeGradients: [
-        'bg-gradient-to-r from-purple-600 via-pink-500 to-red-500',
-        'bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700',
-        'bg-gradient-to-r from-green-500 via-emerald-500 to-teal-600',
-        'bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500',
-        'bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600',
-        'bg-gradient-to-r from-pink-500 via-rose-500 to-red-600',
-        'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'
-      ],
-
-      marqueeItems: [
+      announcements: [
         {
-          icon: 'fas fa-award',
-          text: ' Award-Winning Signage Solutions'
+          text: '🎉 Grand Opening Special - 30% Off All Signage Projects!',
+          subtext: 'Limited time offer expires soon',
+          icon: 'fas fa-gift',
+          bgClass: 'bg-gradient-to-r from-purple-600 via-pink-600 to-red-500',
+          cta: {
+            text: 'Claim Offer',
+            link: '#contact'
+          }
         },
         {
-          icon: 'fas fa-star',
-          text: ' 10,000+ Satisfied Customers'
+          text: '🚀 New Digital Printing Technology Now Available',
+          subtext: 'Experience superior quality and faster turnaround times',
+          icon: 'fas fa-print',
+          bgClass: 'bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700',
+          cta: {
+            text: 'Learn More',
+            link: '#services'
+          }
         },
         {
-          icon: 'fas fa-shipping-fast',
-          text: ' Fast 24-Hour Turnaround'
+          text: '⭐ Award Winner - Best Signage Company 2024',
+          subtext: 'Thank you for trusting ColorCraft with your projects',
+          icon: 'fas fa-trophy',
+          bgClass: 'bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500',
+          cta: {
+            text: 'See Awards',
+            link: '#about'
+          }
         },
         {
-          icon: 'fas fa-palette',
-          text: ' Custom Design Services'
-        },
-        {
+          text: '🌱 Eco-Friendly Materials Now Available',
+          subtext: 'Sustainable signage solutions for environmentally conscious businesses',
           icon: 'fas fa-leaf',
-          text: ' Eco-Friendly Materials Available'
+          bgClass: 'bg-gradient-to-r from-green-500 via-emerald-500 to-teal-600',
+          cta: {
+            text: 'Go Green',
+            link: '#contact'
+          }
         },
         {
-          icon: 'fas fa-tools',
-          text: ' Expert Installation Services'
-        },
-        {
+          text: '📞 24/7 Customer Support Now Live',
+          subtext: 'Get help whenever you need it - day or night',
           icon: 'fas fa-headset',
-          text: ' 24/7 Customer Support'
-        },
-        {
-          icon: 'fas fa-certificate',
-          text: ' Quality Guaranteed'
+          bgClass: 'bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600',
+          cta: {
+            text: 'Contact Us',
+            link: '#contact'
+          }
         }
       ],
+
+      particles: [],
       
       features: [
         {
@@ -346,9 +383,9 @@ export default {
       
       leadership: {
         ceo: {
-          name: 'BalaSubramaniam Mani',
+          name: 'John Smith',
           photo: '/images/ceo-photo.jpg', // Replace with actual image path
-          description: 'With over 15 years of experience in the signage industry, Balasubramaniam leads Colors & Signage Solution with a vision for innovation and excellence. His strategic leadership has positioned the company as a market leader.',
+          description: 'With over 15 years of experience in the signage industry, John leads ColorCraft with a vision for innovation and excellence. His strategic leadership has positioned the company as a market leader.',
           social: {
             linkedin: 'https://linkedin.com/in/johnsmith',
             twitter: 'https://twitter.com/johnsmith'
@@ -357,7 +394,7 @@ export default {
         md: {
           name: 'Sarah Johnson',
           photo: '/images/md-photo.jpg', // Replace with actual image path
-          description: 'Sarah brings extensive operational expertise and a passion for quality to Colors & Signage Solution. Her hands-on approach ensures every project meets our highest standards of craftsmanship.',
+          description: 'Sarah brings extensive operational expertise and a passion for quality to ColorCraft. Her hands-on approach ensures every project meets our highest standards of craftsmanship.',
           social: {
             linkedin: 'https://linkedin.com/in/sarahjohnson',
             instagram: 'https://instagram.com/sarahjohnson'
@@ -385,8 +422,20 @@ export default {
     }
   },
   computed: {
-    currentMarqueeGradient() {
-      return this.marqueeGradients[this.currentGradientIndex]
+    currentAnnouncement() {
+      if (this.announcements.length === 0) {
+        return {
+          text: '🎉 Welcome to ColorCraft - Your Signage Experts!',
+          subtext: 'Contact us today for premium signage solutions',
+          icon: 'fas fa-bullhorn',
+          bgClass: 'bg-gradient-to-r from-purple-600 via-pink-600 to-red-500',
+          cta: {
+            text: 'Get Started',
+            link: '#contact'
+          }
+        }
+      }
+      return this.announcements[this.currentAnnouncementIndex] || this.announcements[0]
     }
   },
   mounted() {
@@ -404,15 +453,19 @@ export default {
       this.showLeadership = true
     }, 1000)
 
-    // Initialize marquee
+    // Initialize announcement bar
     this.$nextTick(() => {
-      this.startGradientRotation()
+      this.startAnnouncementRotation()
+      this.generateParticles()
     })
   },
   beforeUnmount() {
     // Clean up timers
-    if (this.gradientTimer) {
-      clearInterval(this.gradientTimer)
+    if (this.announcementTimer) {
+      clearInterval(this.announcementTimer)
+    }
+    if (this.progressTimer) {
+      clearInterval(this.progressTimer)
     }
   },
   methods: {
@@ -512,12 +565,69 @@ export default {
       }
     },
 
-    // Marquee Methods
-    startGradientRotation() {
-      // Change gradient every 3 seconds
-      this.gradientTimer = setInterval(() => {
-        this.currentGradientIndex = (this.currentGradientIndex + 1) % this.marqueeGradients.length
-      }, 3000)
+    // Announcement Bar Methods
+    startAnnouncementRotation() {
+      // Only rotate if we have multiple announcements
+      if (this.announcements.length <= 1) {
+        return
+      }
+
+      const duration = 5000 // 5 seconds per announcement
+      const progressInterval = 50 // Update progress every 50ms
+      
+      // Start progress bar
+      this.startProgressBar(duration, progressInterval)
+      
+      // Set up announcement rotation
+      this.announcementTimer = setInterval(() => {
+        this.nextAnnouncement()
+        this.startProgressBar(duration, progressInterval)
+      }, duration)
+    },
+
+    startProgressBar(duration, interval) {
+      // Only show progress bar if we have multiple announcements
+      if (this.announcements.length <= 1) {
+        return
+      }
+
+      // Clear existing progress timer
+      if (this.progressTimer) {
+        clearInterval(this.progressTimer)
+      }
+      
+      // Reset progress
+      this.progressWidth = 0
+      const increment = (100 / duration) * interval
+      
+      this.progressTimer = setInterval(() => {
+        this.progressWidth += increment
+        if (this.progressWidth >= 100) {
+          this.progressWidth = 100
+          clearInterval(this.progressTimer)
+        }
+      }, interval)
+    },
+
+    nextAnnouncement() {
+      if (this.announcements.length > 0) {
+        this.currentAnnouncementIndex = (this.currentAnnouncementIndex + 1) % this.announcements.length
+      }
+    },
+
+    generateParticles() {
+      this.particles = []
+      for (let i = 0; i < 6; i++) {
+        this.particles.push({
+          id: i,
+          style: {
+            left: Math.random() * 100 + '%',
+            top: Math.random() * 100 + '%',
+            animationDelay: Math.random() * 4 + 's',
+            animationDuration: (Math.random() * 3 + 2) + 's'
+          }
+        })
+      }
     }
   }
 }
@@ -549,82 +659,51 @@ export default {
   transition: transform 0.3s ease-in-out;
 }
 
+.leadership-card:hover img {
+  transform: scale(1.05);
+}
 
-
-/* Marquee Styles */
-.marquee-container {
+/* Announcement Bar Styles */
+.announcement-bar {
   position: relative;
-  overflow: hidden;
+  background-attachment: fixed;
 }
 
-.marquee-content {
-  overflow: hidden;
+.announcement-text {
+  transition: all 0.5s ease-in-out;
 }
 
-.marquee-text {
-  animation: marqueeScroll 1S linear infinite; /* Changed from 40s to 20s for faster speed */
-  will-change: transform;
-}
-
-@keyframes marqueeScroll {
-  0% {
-    transform: translateX(0);
+/* Floating Animation for Particles */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.7;
   }
-  100% {
-    transform: translateX(-50%);
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 0.3;
   }
 }
 
-/* Pause animation on hover */
-.marquee-container:hover .marquee-text {
-  animation-play-state: paused;
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
 
-/* Speed options - uncomment the one you prefer */
-
-/* Very Fast Speed */
-/*
-.marquee-text {
-  animation-duration: 10s;
-}
-*/
-
-/* Fast Speed */
-/*
-.marquee-text {
-  animation-duration: 15s;
-}
-*/
-
-/* Medium Speed (Default) */
-.marquee-text {
-  animation-duration: 20s;
+/* Progress bar animation */
+.progress-bar {
+  transition: width 0.1s linear;
 }
 
-/* Slow Speed */
-/*
-.marquee-text {
-  animation-duration: 30s;
-}
-*/
-
-/* Very Slow Speed */
-/*
-.marquee-text {
-  animation-duration: 45s;
-}
-*/
-
-/* Responsive marquee speed */
+/* Responsive adjustments for announcement bar */
 @media (max-width: 768px) {
-  .marquee-text {
-    animation-duration: 15s; /* Faster on tablets */
+  .announcement-bar .flex {
+    flex-direction: column;
+    gap: 2px;
   }
-}
-
-@media (max-width: 480px) {
-  .marquee-text {
-    animation-duration: 12s; /* Even faster on mobile */
+  
+  .announcement-bar .ml-4 {
+    margin-left: 0;
+    margin-top: 8px;
   }
 }
 </style>

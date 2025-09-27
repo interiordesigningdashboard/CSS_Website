@@ -241,7 +241,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
-                Visit Our Office
+                Visit Our Studio
               </h4>
             </div>
             <div class="h-48 bg-gradient-to-br from-blue-100 to-orange-100 flex items-center justify-center cursor-pointer hover:from-blue-200 hover:to-orange-200 transition-all duration-300" @click="openMap">
@@ -249,9 +249,7 @@
                 <svg class="w-8 h-8 mx-auto mb-3" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
                 </svg>
-                <p class="font-medium mb-1">
-No.14, SFNo.353, 4B, Kovur, Rajiv Gandhi Nagar,<br>
-Kundrathur, Chennai, Tamil Nadu 600128</p>
+                <p class="font-medium mb-1">123 Creative Avenue<br>Design District, NY 10001</p>
                 <span class="text-sm opacity-75">Click to open map</span>
               </div>
             </div>
@@ -366,15 +364,15 @@ export default {
         {
           title: 'Call Us',
           icon: 'fas fa-phone',
-          details: '+91 99625 00715<br>Monday - Friday, 9AM - 6PM',
-          link: 'tel:+91 9962500715',
+          details: '(555) 123-4567<br>Monday - Friday, 9AM - 6PM',
+          link: 'tel:5551234567',
           linkText: 'Call Now'
         },
         {
           title: 'Email Us',
           icon: 'fas fa-envelope',
-          details: 'info@colorsandsignage.co.in',
-          link: 'mailto:info@colorsandsignage.co.in',
+          details: 'info@colorcraft.com<br>quotes@colorcraft.com',
+          link: 'mailto:info@colorcraft.com',
           linkText: 'Send Email'
         },
       ],
@@ -390,12 +388,12 @@ export default {
         {
           platform: 'Facebook',
           icon: 'fab fa-facebook-f',
-          url: 'https://www.facebook.com/share/19kXHUm2UB/'
+          url: 'https://facebook.com'
         },
         {
           platform: 'Instagram',
           icon: 'fab fa-instagram',
-          url: 'https://www.instagram.com/colorsandsignagesolutions'
+          url: 'https://instagram.com'
         },
         {
           platform: 'LinkedIn',
@@ -547,7 +545,8 @@ export default {
     },
 
     openMap() {
-      const mapUrl = `https://maps.app.goo.gl/7n8iYLg8jQ9T79Qf8`
+      const address = encodeURIComponent('123 Creative Avenue, Design District, NY 10001')
+      const mapUrl = `https://www.google.com/maps/search/?api=1&query=${address}`
       window.open(mapUrl, '_blank', 'noopener,noreferrer')
     }
   }

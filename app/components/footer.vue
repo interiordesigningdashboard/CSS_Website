@@ -63,24 +63,32 @@
           <h4 class="text-lg font-semibold mb-4 text-white">Contact Info</h4>
           <div class="flex flex-col gap-4">
             <div class="flex items-start gap-3">
-              <i class="fas fa-map-marker-alt text-orange-500 text-base mt-0.5 w-4 flex-shrink-0"></i>
-              <div class="flex-1">
-                <p class="text-gray-300 m-0 text-sm leading-snug">No.14, SFNo.353, 4B, Kovur, Rajiv Gandhi Nagar</p>
-                <p class="text-gray-300 m-0 text-sm leading-snug">Kundrathur, Chennai, Tamil Nadu 600128</p>
-              </div>
-            </div>
+  <i class="fas fa-map-marker-alt text-orange-500 text-base mt-0.5 w-4 flex-shrink-0"></i>
+  <div class="flex-1">
+    <a 
+      href="https://maps.app.goo.gl/7n8iYLg8jQ9T79Qf8" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="text-gray-300 m-0 text-sm leading-snug hover:text-blue-400"
+    >
+      No.14, SFNo.353, 4B, Kovur, Rajiv Gandhi Nagar,
+      Kundrathur, Chennai, Tamil Nadu 600128
+    </a>
+  </div>
+</div>
+
             
             <div class="flex items-start gap-3">
               <i class="fas fa-phone text-orange-500 text-base mt-0.5 w-4 flex-shrink-0"></i>
               <div class="flex-1">
-                <a href="tel:5551234567" class="text-gray-300 no-underline transition-colors duration-300 text-sm hover:text-blue-400">(555) 123-4567</a>
+                <a href="tel:+9199625 00715" class="text-gray-300 no-underline transition-colors duration-300 text-sm hover:text-blue-400">+91 99625 00715</a>
               </div>
             </div>
             
             <div class="flex items-start gap-3">
               <i class="fas fa-envelope text-orange-500 text-base mt-0.5 w-4 flex-shrink-0"></i>
               <div class="flex-1">
-                <a href="mailto:info@colorcraft.com" class="text-gray-300 no-underline transition-colors duration-300 text-sm hover:text-blue-400">info@colorcraft.com</a>
+                <a href="mailto:info@colorsandsignage.co.in" class="text-gray-300 no-underline transition-colors duration-300 text-sm hover:text-blue-400">info@colorsandsignage.co.in</a>
               </div>
             </div>
             
@@ -100,7 +108,7 @@
         <div class="flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-6">
           <!-- Copyright -->
           <div>
-            <p class="text-gray-400 text-sm m-0">&copy; {{ currentYear }} <span class="good-times">Colors Signage & Solutions.</span> All rights reserved.</p>
+            <p class="text-gray-400 text-sm m-0">&copy; {{ currentYear }} <span class="good-times">Colors & Signage Solutions.</span> All rights reserved.</p>
           </div>
           
           <!-- Legal Links -->
@@ -181,12 +189,12 @@ export default {
         {
           platform: 'Facebook',
           icon: 'fab fa-facebook-f',
-          url: 'https://facebook.com/colorcraft'
+          url: 'https://www.facebook.com/share/19kXHUm2UB/'
         },
         {
           platform: 'Instagram',
           icon: 'fab fa-instagram',
-          url: 'https://instagram.com/colorcraft'
+          url: 'https://www.instagram.com/colorsandsignagesolutions'
         },
         {
           platform: 'LinkedIn',
