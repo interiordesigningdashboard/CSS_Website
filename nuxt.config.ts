@@ -18,9 +18,9 @@ app: {
     // For project pages (most common): replace with your repo name
     // e.g. '/my-portfolio/' — include leading & trailing slashes
     baseURL: '/CSS_Website/',
-
-    // If deploying to username.github.io, use:
-    // baseURL: '/',
+    head:{link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      ],}
   },
   nitro: {
     prerender: {
