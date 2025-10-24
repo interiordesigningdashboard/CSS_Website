@@ -1,5 +1,5 @@
 <template>
-  <section id="about" class="py-20 bg-gray-50" ref="aboutSection">
+  <section id="about" class="py-20 bg-gray-50">
     <div class="max-w-6xl mx-auto px-8">
       <!-- Main About Content -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
@@ -252,7 +252,6 @@ export default {
       showLeadership: false,
       currentStats: [0, 0, 0, 0],
       statsAnimated: false,
-      observer: null,
       
       // Marquee Data
       currentGradientIndex: 0,
@@ -348,7 +347,7 @@ export default {
       leadership: {
         ceo: {
           name: 'BalaSubramaniam Mani',
-          photo: '/CEO.jpg',
+          photo: '/images/ceo-photo.jpg', // Replace with actual image path
           description: 'With over 15 years of experience in the signage industry, Balasubramaniam leads Colors & Signage Solution with a vision for innovation and excellence. His strategic leadership has positioned the company as a market leader.',
           social: {
             linkedin: 'https://linkedin.com/in/johnsmith',
@@ -357,11 +356,11 @@ export default {
         },
         md: {
           name: 'Siva Ramakrishnan',
-          photo: '/md-photo.jpg',
+          photo: '/images/md-photo.jpg', // Replace with actual image path
           description: 'Siva brings extensive operational expertise and a passion for quality to Colors & Signage Solution. His hands-on approach ensures every project meets our highest standards of craftsmanship.',
           social: {
             linkedin: 'https://linkedin.com/in/sarahjohnson',
-            instagram: 'https://instagram.com/in/sarahjohnson'
+            instagram: 'https://instagram.com/sarahjohnson'
           }
         }
       },
@@ -391,58 +390,57 @@ export default {
     }
   },
   mounted() {
-    // Set up intersection observer
+    // Show features immediately
+    this.showFeatures = true
+    
+    // Set up intersection observer for stats and leadership
     this.setupIntersectionObserver()
     
+    // Fallback: show sections after delay if intersection observer doesn't trigger
+    setTimeout(() => {
+      if (!this.statsAnimated) {
+        this.triggerStatsAnimation()
+      }
+      this.showLeadership = true
+    }, 1000)
+
     // Initialize marquee
     this.$nextTick(() => {
       this.startGradientRotation()
     })
   },
   beforeUnmount() {
-    // Clean up timers and observer
+    // Clean up timers
     if (this.gradientTimer) {
       clearInterval(this.gradientTimer)
-    }
-    if (this.observer) {
-      this.observer.disconnect()
     }
   },
   methods: {
     setupIntersectionObserver() {
       const options = {
-        threshold: 0.2, // Trigger when 20% of the section is visible
-        rootMargin: '0px'
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
       }
 
-      this.observer = new IntersectionObserver((entries) => {
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // About section is in view
-            if (entry.target === this.$refs.aboutSection) {
-              // Show features
-              this.showFeatures = true
-              
-              // Trigger stats animation after a delay
-              setTimeout(() => {
-                if (!this.statsAnimated) {
-                  this.triggerStatsAnimation()
-                }
-              }, 300)
-              
-              // Show leadership section
-              setTimeout(() => {
-                this.showLeadership = true
-              }, 800)
+            if (entry.target === this.$refs.statsContainer && !this.statsAnimated) {
+              this.triggerStatsAnimation()
             }
           }
         })
       }, options)
 
-      // Observe the main about section
-      if (this.$refs.aboutSection) {
-        this.observer.observe(this.$refs.aboutSection)
+      // Observe the stats container
+      if (this.$refs.statsContainer) {
+        observer.observe(this.$refs.statsContainer)
       }
+
+      // Show leadership section when it comes into view
+      setTimeout(() => {
+        this.showLeadership = true
+      }, 2000)
     },
 
     triggerStatsAnimation() {
@@ -488,11 +486,9 @@ export default {
     },
 
     handleImageError(event, role) {
-  // Fallback to a placeholder or default avatar if image fails to load
-  const name = encodeURIComponent(this.leadership[role].name)
-  console.log(name)
-  event.target.src = `https://ui-avatars.com/api/?name=${name}&size=400&background=random&color=ffffff&bold=true`
-},
+      // Fallback to a placeholder or default avatar if image fails to load
+      event.target.src = `https://ui-avatars.com/api/?name=${this.leadership[role].name}&size=400&background=random&color=ffffff&bold=true`
+    },
 
     getSocialIcon(platform) {
       const icons = {
@@ -553,6 +549,8 @@ export default {
   transition: transform 0.3s ease-in-out;
 }
 
+
+
 /* Marquee Styles */
 .marquee-container {
   position: relative;
@@ -564,7 +562,7 @@ export default {
 }
 
 .marquee-text {
-  animation: marqueeScroll 20s linear infinite;
+  animation: marqueeScroll 1S linear infinite; /* Changed from 40s to 20s for faster speed */
   will-change: transform;
 }
 
@@ -582,16 +580,23 @@ export default {
   animation-play-state: paused;
 }
 
+
+
+/* Medium Speed (Default) */
+.marquee-text {
+  animation-duration: 20s;
+}
+
 /* Responsive marquee speed */
 @media (max-width: 768px) {
   .marquee-text {
-    animation-duration: 15s;
+    animation-duration: 15s; /* Faster on tablets */
   }
 }
 
 @media (max-width: 480px) {
   .marquee-text {
-    animation-duration: 12s;
+    animation-duration: 12s; /* Even faster on mobile */
   }
 }
 </style>
