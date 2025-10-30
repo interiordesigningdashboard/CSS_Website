@@ -19,7 +19,7 @@ app: {
     // e.g. '/my-portfolio/' — include leading & trailing slashes
     baseURL: '/CSS_Website/',
     head:{link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/x-icon', href: '/CSS_Website/favicon.ico' },
       ],}
   },
   nitro: {
