@@ -418,7 +418,7 @@ export default {
           name: "BalaSubramaniam Mani",
           photo: "/CSS_Website/CEO.png",
           description:
-            "With over 15 years of experience in the signage industry, Balasubramaniam leads Colors & Signage Solution with a vision for innovation and excellence. His strategic leadership has positioned the company as a market leader.",
+            "With over 15 years of experience in the signage industry, Balasubramaniam leads Colors & Signage Solution with a vision for innovation and excellence.",
           social: {
             linkedin: "https://linkedin.com/in/johnsmith",
             twitter: "https://twitter.com/johnsmith",
