@@ -1,6 +1,6 @@
 <template>
   <section id="about" class="py-20 bg-gray-50" ref="aboutSection">
-    <div class="max-w-6xl mx-auto px-8">
+    <div class="max-w-7xl mx-auto px-8">
       <!-- Main About Content -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
         <!-- About Text -->
@@ -96,10 +96,10 @@
 
           <!-- Company Image/Illustration -->
           <div class="relative h-80">
-            <div
+            <!-- <div
               class="bg-gradient-to-br from-blue-50 to-pink-50 rounded-3xl h-full flex items-center justify-center relative overflow-hidden"
             >
-              <!-- Floating Elements -->
+              Floating Elements
               <div class="absolute inset-0">
                 <div
                   v-for="(element, index) in floatingElements"
@@ -111,11 +111,12 @@
                   <i :class="element.icon"></i>
                 </div>
               </div>
-              <!-- Main Icon -->
+              Main Icon
               <div class="text-8xl text-blue-600 opacity-30 relative z-10">
                 <i class="fas fa-building"></i>
               </div>
-            </div>
+            </div> -->
+            <img class="w-3xl" src="/office.jpg" alt="office_pic" srcset="" />
           </div>
         </div>
       </div>
@@ -125,12 +126,12 @@
         <div class="text-center mb-16">
           <h3 class="text-4xl font-bold text-gray-900 mb-4">Our Leadership</h3>
           <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-            Meet the visionary leaders who drive Colors & Signage Solution's
+            Meet the visionary leader who drive Colors & Signage Solution's
             innovation and excellence
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-1 gap-12 max-w-4xl mx-auto">
           <!-- CEO Section -->
           <div
             class="leadership-card text-center group"
@@ -197,7 +198,7 @@
             }"
             style="transition-delay: 0.4s"
           >
-            <div class="relative mb-6">
+            <!-- <div class="relative mb-6">
               <div
                 class="w-48 h-48 mx-auto rounded-full overflow-hidden shadow-lg ring-4 ring-white group-hover:ring-orange-100 transition-all duration-300"
               >
@@ -208,13 +209,13 @@
                   @error="handleImageError($event, 'md')"
                 />
               </div>
-              <!-- Decorative Ring -->
+              
               <div
                 class="absolute inset-0 w-48 h-48 mx-auto rounded-full border-4 border-orange-200 opacity-0 group-hover:opacity-100 scale-110 group-hover:scale-125 transition-all duration-300"
               ></div>
-            </div>
+            </div> -->
 
-            <div
+            <!-- <div
               class="bg-white rounded-2xl p-8 shadow-sm border group-hover:shadow-lg group-hover:border-orange-100 transition-all duration-300"
             >
               <h4 class="text-2xl font-bold text-gray-900 mb-2">
@@ -227,7 +228,7 @@
                 {{ leadership.md.description }}
               </p>
 
-              <!-- Social Links (optional) -->
+              
               <div
                 class="flex justify-center gap-4 mt-6"
                 v-if="leadership.md.social"
@@ -242,7 +243,7 @@
                   <i :class="getSocialIcon(platform)"></i>
                 </a>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -292,7 +293,7 @@
         ></div>
 
         <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-10">
+        <!-- <div class="absolute inset-0 opacity-10">
           <div
             class="w-full h-full"
             style="
@@ -303,7 +304,9 @@
               );
               background-size: 50px 50px;
             "
-          ></div>
+          ></div> -->
+        <div class="absolute inset-0 opacity-10">
+          <div class="w-full h-full" :style="bgStyle"></div>
         </div>
       </div>
     </div>
@@ -424,16 +427,16 @@ export default {
             twitter: "https://twitter.com/johnsmith",
           },
         },
-        md: {
-          name: "Siva Ramakrishnan",
-          photo: "/CSS_Website/MD.jpg",
-          description:
-            "Siva brings extensive operational expertise and a passion for quality to Colors & Signage Solution. His hands-on approach ensures every project meets our highest standards of craftsmanship.",
-          social: {
-            linkedin: "https://linkedin.com/in/sarahjohnson",
-            instagram: "https://instagram.com/in/sarahjohnson",
-          },
-        },
+        // md: {
+        //   name: "Siva Ramakrishnan",
+        //   photo: "/CSS_Website/MD.jpg",
+        //   description:
+        //     "Siva brings extensive operational expertise and a passion for quality to Colors & Signage Solution. His hands-on approach ensures every project meets our highest standards of craftsmanship.",
+        //   social: {
+        //     linkedin: "https://linkedin.com/in/sarahjohnson",
+        //     instagram: "https://instagram.com/in/sarahjohnson",
+        //   },
+        // },
       },
 
       floatingElements: [
@@ -458,6 +461,13 @@ export default {
   computed: {
     currentMarqueeGradient() {
       return this.marqueeGradients[this.currentGradientIndex];
+    },
+    bgStyle() {
+      return {
+        backgroundImage:
+          "radial-gradient(circle at 25% 25%, white 2px, transparent 2px)",
+        backgroundSize: "50px 50px",
+      };
     },
   },
   mounted() {
@@ -616,7 +626,9 @@ export default {
 }
 
 .leadership-card {
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 /* Image hover effects */

@@ -7,7 +7,11 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
   modules: ["@nuxt/icon"],
-  css: ["@fortawesome/fontawesome-free/css/all.css", "@/assets/main.css"],
+  css: [
+    "@fortawesome/fontawesome-free/css/all.css",
+    "@/assets/main.css",
+    "bootstrap-icons/font/bootstrap-icons.css",
+  ],
   ssr: true, // Keep SSR enabled
   app: {
     // For project pages (most common): replace with your repo name
@@ -25,6 +29,12 @@ export default defineNuxtConfig({
       crawlLinks: true,
       // Make sure the homepage is generated
       routes: ["/"],
+    },
+  },
+  runtimeConfig: {
+    public: {
+      // STRAPI_URL: "http://192.168.29.237:1337",
+      STRAPI_URL: process.env.NUXT_PUBLIC_STRAPI_URL || "http://localhost:1337",
     },
   },
 });

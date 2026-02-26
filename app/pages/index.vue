@@ -11,9 +11,8 @@
       <!-- Process -->
       <!-- <Process /> -->
 
-      
-        <!-- About -->
-        <about />
+      <!-- About -->
+      <about />
       <!-- Testimonials -->
       <!-- <Testimonials /> -->
 
@@ -24,25 +23,24 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import Hero from '~/components/hero.vue'
-import Services from '~/components/services.vue'
-import portfolio from '~/components/portfolio.vue'
-import ContactForm from '~/components/contact.vue'
-import about from '~/components/about.vue'
+import { ref } from "vue";
+import Hero from "~/components/hero.vue";
+import Services from "~/components/services.vue";
+import portfolio from "~/components/portfolio.vue";
+import ContactForm from "~/components/contact.vue";
+import about from "~/components/about.vue";
 // import FeaturedProjects from '~/components/FeaturedProjects.vue'
 // import Process from '~/components/Process.vue'
 
-
 // Meta tags
 useHead({
-  title: 'Colors & Signage Solutions',
+  title: "Colors & Signage Solutions",
   meta: [
     {
-      name: 'description',
-      content: 'We specialize in signage, digital printing, and wallpaper solutions. Bringing creativity and quality together to transform your spaces with vibrant designs and lasting impact.'
-    }
-  ]
-})
-
+      name: "description",
+      content:
+        "We specialize in signage, digital printing, and wallpaper solutions. Bringing creativity and quality together to transform your spaces with vibrant designs and lasting impact.",
+    },
+  ],
+});
 </script>
