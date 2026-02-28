@@ -13,6 +13,8 @@
 
       <!-- About -->
       <about />
+      <Brands />
+      <faq />
       <!-- Testimonials -->
       <!-- <Testimonials /> -->
 
@@ -29,6 +31,8 @@ import Services from "~/components/services.vue";
 import portfolio from "~/components/portfolio.vue";
 import ContactForm from "~/components/contact.vue";
 import about from "~/components/about.vue";
+import faq from "~/components/faq.vue";
+import Brands from "~/components/brands.vue";
 // import FeaturedProjects from '~/components/FeaturedProjects.vue'
 // import Process from '~/components/Process.vue'
 

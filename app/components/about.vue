@@ -124,14 +124,18 @@
       <!-- Leadership Section -->
       <div class="mt-20 pt-20 border-t border-gray-200">
         <div class="text-center mb-16">
-          <h3 class="text-4xl font-bold text-gray-900 mb-4">Our Leadership</h3>
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h3
+            class="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent"
+          >
+            Our Leadership
+          </h3>
+          <p class="text-lg text-black max-w-2xl mx-auto">
             Meet the visionary leader who drive Colors & Signage Solution's
             innovation and excellence
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-1 gap-12 max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-1 gap-12 max-w-3xl mx-auto">
           <!-- CEO Section -->
           <div
             class="leadership-card text-center group"

@@ -97,7 +97,7 @@ export default {
   data() {
     return {
       // Main content
-      fullText: "Transforming Spaces with Innovative Signage & Printing",
+      fullText: "Elevating Brands with Innovative Signage & Printing",
       displayedText: "",
       subtitle:
         "Bringing your brand to life with cutting-edge design solutions, premium quality materials, and expert craftsmanship that makes your business stand out.",
